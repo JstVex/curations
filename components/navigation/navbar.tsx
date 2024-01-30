@@ -15,7 +15,7 @@ const Navbar = () => {
     const pathname = usePathname();
 
     return (
-        <nav className="flex justify-center py-5 px-20">
+        <nav className="flex justify-center py-5 sm:px-4 md:px-8">
             <div className="w-full max-w-main grow">
                 <div className="flex items-center justify-between">
                     <div>

@@ -9,10 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       maxWidth: {
-        main: "1100px"
+        main: "1200px"
       },
       width: {
-        main: "1100px"
+        main: "1200px"
+      },
+      dropShadow: {
+        glow: [
+          "0 0px 20px rgba(255,255, 255, 0.65)",
+          "0 0px 65px rgba(255, 255,255, 0.5)"
+        ]
       }
     },
   },
