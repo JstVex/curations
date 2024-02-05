@@ -1,12 +1,11 @@
-import CardsContainer from "@/components/card/cards-container";
 import Main from "@/components/layout";
-import Subcategories from "@/components/ui/subcategories";
+import SubcatClient from "@/components/ui/subcat-client";
 import TitleSection from "@/components/ui/title-section";
 
 async function fetchResourcesByCategory() {
     const spaceId = process.env.CONTENTFUL_SPACE_ID;
     const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN;
-    const url = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?access_token=${accessToken}&content_type=resource&fields.category=Web&include=2`;
+    const url = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?access_token=${accessToken}&content_type=resource&fields.category=Web&include=5`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -20,14 +19,25 @@ async function fetchResourcesByCategory() {
     }
 }
 
+async function getUniqueSubcategories(resources: any[]) {
+    const allSubcats = resources.flatMap(resource =>
+        resource.fields.subcat || []
+    );
+
+    const uniqueSubcats = ["All", ...new Set(allSubcats)];
+
+    return uniqueSubcats;
+}
+
+
 export default async function Web() {
     const resources = await fetchResourcesByCategory();
+    const uniqueSubcats = await getUniqueSubcategories(resources);
 
     return (
         <Main>
             <TitleSection title="web developers" />
-            <Subcategories />
-            <CardsContainer resources={resources} />
+            <SubcatClient initialResources={resources} subcategories={uniqueSubcats} />
         </Main>
     );
 }
