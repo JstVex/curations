@@ -6,7 +6,7 @@ interface SubcategoriesProps {
 
 const Subcategories: React.FC<SubcategoriesProps> = ({ subcategories, onSelect, selectedSubcategory }) => {
     return (
-        <section className="mt-16 mb-4">
+        <section className="mb-4">
             <div className="flex items-center text-zinc-400 overflow-x-auto no-scrollbar">
                 {subcategories.map((subcategory, index) => (
                     <div
