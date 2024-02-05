@@ -1,41 +1,53 @@
+'use client'
+
+import React, { useState, useEffect } from 'react';
 import { client } from "@/lib/contentful/client";
-import Image from "next/image";
+import Image from 'next/image';
 
 interface CardProps {
     resource: any;
 }
 
-async function fetchAsset(imageSysId: string): Promise<string | null> {
-    try {
-        const asset = await client.getAsset(imageSysId);
-        return `https:${asset?.fields?.file?.url}?fm=jpg`;
-    } catch (error) {
-        console.error("Error fetching asset:", error);
-        return null;
-    }
-}
-
-export default async function Card({ resource }: CardProps) {
+const Card: React.FC<CardProps> = ({ resource }) => {
     const { title, image } = resource.fields;
-    let imageUrl = '';
+    const [imageUrl, setImageUrl] = useState('');
 
-    if (image && image.sys && image.sys.id) {
-        imageUrl = await fetchAsset(image.sys.id) ?? '';
-    } else if (image && image.fields && image.fields.file && image.fields.file.url) {
-        imageUrl = `https:${image.fields.file.url}`;
-    }
+    useEffect(() => {
+        const fetchAsset = async (imageSysId: string) => {
+            try {
+                const asset = await client.getAsset(imageSysId);
+                const url = `https:${asset?.fields?.file?.url}?fm=jpg`;
+                setImageUrl(url);
+            } catch (error) {
+                console.error("Error fetching asset:", error);
+                setImageUrl('');
+            }
+        };
+
+        if (image && image.sys && image.sys.id) {
+            fetchAsset(image.sys.id);
+        } else if (image && image.fields && image.fields.file && image.fields.file.url) {
+            setImageUrl(`https:${image.fields.file.url}`);
+        }
+    }, [image]);
 
     return (
         <div className="flex flex-col space-y-1">
-            <Image
-                className="w-full h-full object-cover rounded-lg border border-zinc-800"
-                src={imageUrl}
-                quality={100}
-                width={200}
-                height={125}
-                alt={title}
-            />
-            <h3>{title}</h3>
+            {imageUrl && (
+                <Image
+                    className="w-full h-full object-cover rounded-lg border border-zinc-800"
+                    src={imageUrl}
+                    quality={100}
+                    width={200}
+                    height={125}
+                    alt={title}
+                />
+            )}
+            <h3>
+                {title}
+            </h3>
         </div>
     );
 };
+
+export default Card;
