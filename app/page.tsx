@@ -1,6 +1,5 @@
 import CardsContainer from "@/components/card/cards-container";
 import Main from "@/components/layout";
-import Subcategories from "@/components/ui/subcategories";
 import TitleSection from "@/components/ui/title-section";
 import { client } from "@/lib/contentful/client";
 
@@ -14,11 +13,11 @@ async function fetchResources() {
 
 export default async function Home() {
   const resources = await fetchResources();
+  console.log("Resources:", resources);
 
   return (
     <Main>
       <TitleSection title="web developers, designers and programmers" />
-      <Subcategories />
       <CardsContainer resources={resources} />
     </Main>
   );
