@@ -1,4 +1,5 @@
 import Main from "@/components/layout";
+import LanguageSwitch from "@/components/ui/language-switch";
 import { client } from "@/lib/contentful/client";
 import { ArrowUpRight, MoveLeft } from "lucide-react";
 import Image from "next/image";
@@ -15,7 +16,7 @@ async function fetchResource(slug: string) {
 
 export default async function ResourceDetails({ params }: { params: { slug: string } }) {
     const resource: any = await fetchResource(params.slug);
-    const { title, description, image, category, subcat, link } = resource.fields;
+    const { title, description, burmeseDescription, image, category, subcat, link } = resource.fields;
 
     return (
         <Main>
@@ -37,12 +38,23 @@ export default async function ResourceDetails({ params }: { params: { slug: stri
                     />
                 </div>
                 <div className="col-span-7 lg:col-span-3">
-                    <h1 className="text-2xl font-bold mb-1">
-                        {title}
-                    </h1>
-                    <p className="text-sm font-light text-zinc-300 sm:text-[0.925rem]">
-                        {description}
-                    </p>
+                    {burmeseDescription ? (
+                        <LanguageSwitch
+                            title={title}
+                            description={description}
+                            burmeseDescription={burmeseDescription}
+                        />
+                    ) : (
+                        <>
+                            <h1 className="text-2xl font-bold mb-2">
+                                {title}
+                            </h1>
+                            <p className="text-sm font-light text-zinc-300 sm:text-[0.925rem]">
+                                {description}
+                            </p>
+                        </>
+
+                    )}
                     <button className="text-sm bg-zinc-800 rounded-md px-2 py-1 mt-3 transition-colors hover:bg-zinc-700">
                         <a href={link} className="flex items-center gap-x-2">
                             <div>
