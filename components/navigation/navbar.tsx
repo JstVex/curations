@@ -22,7 +22,7 @@ const Navbar = () => {
     const pathname = usePathname();
 
     return (
-        <nav className="flex justify-center pt-5 pb-3 px-3 sm:px-4 md:px-6 border-b border-zinc-700 sm:border-none md:pb-5">
+        <nav className="flex justify-center pt-5 pb-3 px-3 sm:px-4 md:px-6 border-b border-zinc-700 sm:border-none sm:pb-6">
             <div className="w-full max-w-main grow">
                 <div className="flex items-center justify-between mx-3 sm:mx-0">
                     <div>

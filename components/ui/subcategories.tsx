@@ -11,7 +11,7 @@ const Subcategories: React.FC<SubcategoriesProps> = ({ subcategories, onSelect, 
                 {subcategories.map((subcategory, index) => (
                     <div
                         key={index}
-                        className={`w-auto min-w-max cursor-pointer rounded-full transition-colors px-4 py-2  hover:text-white ${selectedSubcategory === subcategory ? "bg-zinc-800 text-white" : "hover:bg-zinc-900"}`}
+                        className={`w-auto min-w-max cursor-pointer rounded-full transition-colors px-4 py-2 hover:text-white ${selectedSubcategory === subcategory ? "bg-zinc-800 text-white" : "hover:bg-zinc-900"}`}
                         onClick={() => onSelect(subcategory)}
                     >
                         {subcategory}
