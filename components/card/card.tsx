@@ -3,13 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import { client } from "@/lib/contentful/client";
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface CardProps {
     resource: any;
 }
 
 const Card: React.FC<CardProps> = ({ resource }) => {
-    const { title, image } = resource.fields;
+    const { title, image, slug } = resource.fields;
     const [imageUrl, setImageUrl] = useState('');
 
     useEffect(() => {
@@ -34,14 +35,16 @@ const Card: React.FC<CardProps> = ({ resource }) => {
     return (
         <div className="flex flex-col space-y-1">
             {imageUrl && (
-                <Image
-                    className="w-full h-full object-cover rounded-lg border border-zinc-800"
-                    src={imageUrl}
-                    quality={100}
-                    width={200}
-                    height={125}
-                    alt={title}
-                />
+                <Link href={`/resources/${slug}`}>
+                    <Image
+                        className="w-full h-full object-cover rounded-lg border border-zinc-800"
+                        src={imageUrl}
+                        quality={100}
+                        width={200}
+                        height={125}
+                        alt={title}
+                    />
+                </Link>
             )}
             <h3>
                 {title}
