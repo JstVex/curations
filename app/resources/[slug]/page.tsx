@@ -40,7 +40,7 @@ export default async function ResourceDetails({ params }: { params: { slug: stri
                     <h1 className="text-2xl font-bold mb-1">
                         {title}
                     </h1>
-                    <p className="text-[0.925rem] font-light text-zinc-300">
+                    <p className="text-sm font-light text-zinc-300 sm:text-[0.925rem]">
                         {description}
                     </p>
                     <button className="text-sm bg-zinc-800 rounded-md px-2 py-1 mt-3 transition-colors hover:bg-zinc-700">
