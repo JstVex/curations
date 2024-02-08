@@ -20,7 +20,7 @@ export default async function ResourceDetails({ params }: { params: { slug: stri
 
     return (
         <Main>
-            <Link href="/" className="flex items-center gap-x-1 text-zinc-200 mb-6">
+            <Link href="/" className="flex w-fit items-center gap-x-1 text-zinc-200 mb-6">
                 <MoveLeft size={16} />
                 <span>
                     Back
