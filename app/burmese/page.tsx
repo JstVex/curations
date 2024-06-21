@@ -10,7 +10,7 @@ export default async function Burmese() {
 
     return (
         <Main>
-            <TitleSection title="burmese developer community" />
+            <TitleSection title="Burmese developer community" />
             <SubcatClient initialResources={resources} subcategories={uniqueSubcats} />
         </Main>
     );

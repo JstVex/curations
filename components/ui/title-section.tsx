@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface TitleSectionProps {
     title: string;
 }
@@ -12,9 +14,17 @@ const TitleSection: React.FC<TitleSectionProps> = ({ title }) => {
                         {title}
                     </div>
                 </h1>
-                <p className="text-base text-zinc-400 font-light">
-                    Explore a collection of curated resources, tools, inspirations and more that will help you in your tech journey. Got a new one? <span className="underline underline-offset-2 decoration-zinc-700 cursor-pointer transition-colors hover:decoration-zinc-500">Submit here</span>
-                </p>
+                {title.includes("Burmese") ? (
+                    <p className="text-base text-zinc-400 font-light">
+                        သင့်၏နည်းပညာခရီးစဉ်တွင် ကူညီပေးမယ့် စီစဉ်ထားတဲ့ အရင်းအမြစ်များ၊ ကိရိယာများ၊ အင်စပရေးရှင်းများနှင့် အခြားအရာများကို စုစည်းထားတဲ့ စုစုပေါင်းကို ရှာဖွေကြည့်ပါ။ အသစ်တစ်ခုရှိပါသလား?{" "}
+                        <span className="underline underline-offset-2 decoration-zinc-700 cursor-pointer transition-colors hover:decoration-zinc-500"> ဒီမှာတင်ပြပါ။</span>
+                    </p>
+                ) : (
+                    <p className="text-base text-zinc-400 font-light">
+                        Explore a collection of curated resources, tools, inspirations and more that will help you in your tech journey. Got a new one? {" "}
+                        <Link href='/submit' className="underline underline-offset-2 decoration-zinc-700 cursor-pointer transition-colors hover:decoration-zinc-500">Submit here</Link>
+                    </p>
+                )}
             </div>
         </section>
     );
