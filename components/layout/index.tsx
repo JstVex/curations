@@ -14,7 +14,7 @@ const Main: React.FC<MainProps> = ({ children }) => {
                     </div>
                 </main>
             </div>
-            <div className="w-full max-w-main mx-auto">
+            <div className="w-full max-w-main mx-auto px-3 sm:px-4 md:px-6 py-10">
                 <Footer />
             </div>
         </div>
