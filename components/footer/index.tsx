@@ -11,7 +11,7 @@ const links: Link[] = [
         label: "About",
     },
     {
-        href: "https://",
+        href: "/submit",
         label: "Add a Resource",
     },
     {

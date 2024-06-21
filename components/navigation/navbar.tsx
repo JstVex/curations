@@ -46,8 +46,11 @@ const Navbar = () => {
                             </li>
                         ))}
                     </ul>
+
                     <button className="text-sm bg-white rounded-full text-black px-4 py-2">
-                        Add resource
+                        <Link href='/submit'>
+                            Add resource
+                        </Link>
                     </button>
                 </div>
                 <ul className="flex items-center justify-between text-sm mt-2 overflow-x-auto no-scrollbar sm:hidden">
