@@ -1,5 +1,6 @@
 'use client'
 import Main from "@/components/layout";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface FormData {
@@ -18,14 +19,28 @@ const Submit = () => {
         subcat: '',
         additionalInfo: ''
     });
+    const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
+    const router = useRouter();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
         setFormData({ ...formData, [id]: value });
+        if (errors[id]) {
+            setErrors({ ...errors, [id]: false });
+        }
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const newErrors: { [key: string]: boolean } = {};
+        if (!formData.title) newErrors.title = true;
+        if (!formData.link) newErrors.link = true;
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }
 
         try {
             const response = await fetch('https://formspree.io/f/xeojjozq', {
@@ -37,7 +52,6 @@ const Submit = () => {
             });
 
             if (response.ok) {
-                alert('Resource submitted successfully!');
                 setFormData({
                     title: '',
                     link: '',
@@ -45,6 +59,7 @@ const Submit = () => {
                     subcat: '',
                     additionalInfo: ''
                 });
+                router.push('/submit/success');
             } else {
                 console.error('Error submitting form:', response);
             }
@@ -80,7 +95,7 @@ const Submit = () => {
                         <input
                             type="text"
                             id="title"
-                            className="p-2 border border-zinc-800 rounded-md bg-black focus:outline-none focus:border-zinc-400 placeholder:text-zinc-400 placeholder:text-sm" placeholder="Name/Title"
+                            className={`p-2 border ${errors.title ? 'border-red-600' : 'border-zinc-800'} rounded-md bg-black focus:outline-none focus:border-zinc-400 placeholder:text-zinc-400 placeholder:text-sm`} placeholder="Name/Title"
                             value={formData.title}
                             onChange={handleChange}
                         />
@@ -92,7 +107,7 @@ const Submit = () => {
                         <input
                             type="text"
                             id="link"
-                            className="p-2 border border-zinc-800 rounded-md bg-black focus:outline-none focus:border-zinc-400 placeholder:text-zinc-400 placeholder:text-sm" placeholder="Url/Link"
+                            className={`p-2 border ${errors.link ? 'border-red-600' : 'border-zinc-800'} rounded-md bg-black focus:outline-none focus:border-zinc-400 placeholder:text-zinc-400 placeholder:text-sm`} placeholder="Url/Link"
                             value={formData.link}
                             onChange={handleChange}
                         />
