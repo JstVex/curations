@@ -43,7 +43,7 @@ const Submit = () => {
         }
 
         try {
-            const response = await fetch('https://formspree.io/f/xeojjozq', {
+            const response = await fetch('/api/submit-resource', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,12 +70,6 @@ const Submit = () => {
 
     return (
         <Main>
-            {/* <h1 className="text-3xl text-center drop-shadow-glow">
-                Submit a resource
-            </h1>
-            <p className="text-center my-4 max-w-[800px] mx-auto font-light">
-                Please fill out the form below to submit a resource to the site. It will take a few days for the resource to be reviewed and published.
-            </p> */}
             <div className="flex items-center justify-center mb-10 md:mb-16">
                 <div className="w-4/5 sm:w-2/3 flex flex-col text-center space-y-4">
                     <h1 className="text-3xl text-center drop-shadow-glow">
