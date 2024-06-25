@@ -1,20 +1,11 @@
-import { google, sheets_v4 } from 'googleapis';
-import { NextRequest, NextResponse } from 'next/server';
+import { google } from 'googleapis';
 import path from 'path';
-
-type FormData = {
-    title: string;
-    link: string;
-    category: string;
-    subcat: string;
-    additionalInfo: string;
-};
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
-export async function POST(req: NextRequest) {
+export async function POST(req) {
     try {
-        const body: FormData = await req.json();
+        const body = await req.json();
 
         const { title, link, category, subcat, additionalInfo } = body;
 
@@ -23,14 +14,14 @@ export async function POST(req: NextRequest) {
         }
 
         const auth = new google.auth.GoogleAuth({
-            keyFile: path.join(process.cwd(), process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH as string),
+            keyFile: path.join(process.cwd(), process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH),
             scopes: SCOPES,
         });
 
         const authClient = await auth.getClient();
-        const sheets = google.sheets({ version: 'v4', auth: authClient }) as sheets_v4.Sheets;
+        const sheets = google.sheets({ version: 'v4', auth: authClient });
 
-        const spreadsheetId = process.env.GOOGLE_SHEET_ID as string;
+        const spreadsheetId = process.env.GOOGLE_SHEET_ID;
         const range = 'Sheet1!A:F';
 
         const resource = {
