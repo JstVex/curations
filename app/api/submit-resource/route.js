@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import path from 'path';
+import { NextResponse } from 'next/server';
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
@@ -19,8 +20,8 @@ export async function POST(req) {
         });
 
         const authClient = await auth.getClient();
-        const sheets = google.sheets({ version: 'v4', auth: authClient });
 
+        const sheets = google.sheets({ version: 'v4', auth: authClient });
         const spreadsheetId = process.env.GOOGLE_SHEET_ID;
         const range = 'Sheet1!A:F';
 
@@ -38,7 +39,6 @@ export async function POST(req) {
         return NextResponse.json({ message: 'Resource submitted successfully!' });
 
     } catch (error) {
-        console.error('Error appending to sheet:', error);
-        return NextResponse.json({ message: 'Failed to submit resource', error }, { status: 500 });
+        return NextResponse.json({ message: 'Failed to submit resource', error: error.message }, { status: 500 });
     }
 }
