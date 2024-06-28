@@ -19,7 +19,10 @@ const config: Config = {
           "0 0px 20px rgba(255,255, 255, 0.65)",
           "0 0px 65px rgba(255, 255,255, 0.5)"
         ]
-      }
+      },
+      screens: {
+        'main': '1200px',
+      },
     },
   },
   plugins: [],
